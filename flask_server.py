@@ -16,7 +16,7 @@ api = Api(app)
 app.config["SECRET KEY"] = "65ff0b900bf37f58d6f61a4d"
 
 cluster = MongoClient(uri)
-db = cluster['sample_mflix']
+db = cluster['records']
 
 print(cluster.list_database_names())
 
@@ -29,7 +29,22 @@ class Test(Resource):
         print(results[0])
         return jsonify(results[0]["name"])
 
-api.add_resource(Test, '/test')
+class AddData(Resource):
+    def post(self):
+        data = request.json
+        db.calories.insert_one(data["calories"])
+        db.nutritions.insert_one(data["nutritions"])
+        return jsonify({"message": "Data added successfully"})
+
+class GetData(Resource):
+    def get(self):
+        data = db.calories.find()
+        results = []
+        for calorie in data:
+            results.append(calorie)
+        return jsonify(results)
+
+api.add_resource(AddData, '/add-data')
 
 if __name__ == '__main__':
     app.run(debug=True)
