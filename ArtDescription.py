@@ -1,4 +1,3 @@
-
 from dotenv import *
 import os
 import google.generativeai as genai
@@ -14,11 +13,10 @@ def generate_description(image_path):
     
     model = genai.GenerativeModel("gemini-pro-vision")
     image = Image.open(image_path)
-    responses = model.generate_content([image, "Describe the most visible object in English"])
+    responses = model.generate_content([image, "Describe the art in the picture with enthusiasm"])
     
     return responses.text
 
-image_path = r"Optick\people.jpg"
+image_path = r"Optick\eye.jpg"
 description = generate_description(image_path)
 print(description)
-
