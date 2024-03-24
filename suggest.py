@@ -6,17 +6,16 @@ import google.ai.generativelanguage as glm
 from google.generativeai.types.content_types import *
 from PIL import Image
 import json
-import ast
 
-def generate_nutrional_values(description):
-    load_dotenv()
-    GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-    
-    genai.configure(api_key=GOOGLE_API_KEY)
-    
-    model = genai.GenerativeModel("gemini-pro")
-    prompt = """
-    You're a highly advanced nutritional expert with decades of experience in analyzing food items and their nutritional content. Your specialty lies in providing detailed insights into the nutritional aspects of various foods and suggesting alternatives with similar values.  
+load_dotenv()
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+
+genai.configure(api_key=GOOGLE_API_KEY)
+
+model = genai.GenerativeModel("gemini-pro")
+
+prompt = """
+You're a highly advanced nutritional expert with decades of experience in analyzing food items and their nutritional content. Your specialty lies in providing detailed insights into the nutritional aspects of various foods and suggesting alternatives with similar values.  
 
 Your task is to analyze a photo of a food item and output its nutritional value, focusing on calories. Additionally, suggest other foods with similar nutritional values.  
 
@@ -47,7 +46,9 @@ IMPORTANT - Keep number of food items in check (it will appear as value of the k
 IMPORTANT - only decribe nutritional value in one line for all the suggestions for alternative food item
 IMPORTANT - give output for all food items, there maybe more than one
 IMPORTANT - give me an output in strictly dict format
-    """
+"""
+
+def generate_nutrional_values(description):
     responses = model.generate_content([description, prompt])
     
     return responses.text
