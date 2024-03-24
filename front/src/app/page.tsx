@@ -24,7 +24,7 @@ const A = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <div>
-        <h1 className="text-4xl font-semibold mb-8 text-center text-green-900">Hey Dahong!</h1>
+        <h1 className="text-4xl font-semibold mb-8 text-center text-green-900">Hey!</h1>
         <p className="text-lg italic mb-8 text-center text-gray-800">{quote}</p>
       </div>
       <div className="flex justify-center items-center w-full">
@@ -32,7 +32,7 @@ const A = () => {
           <Image src="/ice_cream.svg" height={480} width={480} alt="" />
           <div className="ml-4">
             <Link href="/tracker">
-              <Button className="bg-[#228B22] w-48 h-12">Add to Stomach!</Button>
+              <Button className="bg-[#228B22] w-48 h-12 ">Add to Stomach!</Button>
             </Link>
           </div>
         </div>

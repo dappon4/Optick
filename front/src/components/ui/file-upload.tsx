@@ -146,7 +146,7 @@ const FileUpload = ({ component }: { component: ("tracker" | "meal") }) => {
                         <input id="dropzone-file" type="file" className='hidden' onChange={handleFileChange} />
                         {preview && <div className='flex space-x-4 items-center'>
                             <img src={preview} className='h-12' alt="Preview" />
-                            <Button onClick={handleFileUpload}>Upload</Button>
+                            <Button className='bg-[#228B22]' onClick={handleFileUpload}>Upload</Button>
                         </div>}
                     </label>
                 </div>
