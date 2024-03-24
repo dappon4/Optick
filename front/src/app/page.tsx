@@ -1,9 +1,21 @@
-// pages/A.js
+'use client'
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import base from "./svgs.css";
 import { Button } from "@/components/ui/button";
+import  { useEffect, useState } from "react";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import axios from 'axios';
+import { Badge } from "@/components/ui/badge"
 
 const quotes = [
   "The only way to do great work is to love what you do. - Steve Jobs",
@@ -18,8 +30,31 @@ const getRandomQuote = () => {
   return quotes[randomIndex];
 };
 
+
 const A = () => {
   const quote = getRandomQuote();
+
+  const [suggestions, setSuggestions] = useState(null);
+
+  const fetchSuggestions = async () => {
+      if (suggestions === null) {
+          try {
+              // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+              const response = await axios.get('http://167.71.172.236:5000/get-suggestions', {
+                  headers: {
+                      'Content-Type': 'application/json', // Use JSON content type for Base64 data
+                  },
+              });
+
+              console.log(JSON.parse(response.data));
+
+              setSuggestions(response.data)
+          } catch (error) {
+              console.error('Error uploading file:', error);
+              fetchSuggestions();
+          }
+      }
+  }
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
@@ -36,6 +71,33 @@ const A = () => {
             </Link>
           </div>
         </div>
+        <Sheet>
+                <SheetTrigger>
+                    <Button onClick={() => fetchSuggestions()} className="bg-[#228B22]">
+                        Suggest Recipes!
+                    </Button>
+                </SheetTrigger>
+                <SheetContent className="w-144" side="left">
+                    <SheetHeader>
+                        <SheetTitle>Recipes Based on Your Inventory:</SheetTitle>
+                    </SheetHeader>
+                    {suggestions === null ? <div className="flex mb-4">
+                        <div className="dots-loading" />
+                    </div> : (<>{Object.keys(JSON.parse(suggestions)).map((key: string, i: number) => {
+                        return (<div>
+                            <h1 className="font-bold text-[#228B22] mb-2">{i + 1}. {JSON.parse(suggestions)[key].name}</h1>
+                            <div className="flex flex-wrap">
+                                {JSON.parse(suggestions)[key].ingredients.map((ing: any) => {
+                                    return (<Badge className="m-2" variant="outline">{ing.name}, {ing.quantity}</Badge>)
+                                })}
+                            </div>
+                            <div className="flex flex-col space-y-2 my-2">
+                                {JSON.parse(suggestions)[key].instructions.map((step: string) => <p>{step}</p>)}
+                            </div>
+                        </div>)
+                    })}</>)}
+                </SheetContent>
+            </Sheet>
         <div className={`${base.bgRight} flex items-center justify-center w-1/2 h-full`}>
           <div className="ml-4 mr-4">
             <Link href="/meal">
@@ -44,6 +106,7 @@ const A = () => {
           </div>
           <Image src="/tea.svg" height={480} width={480} alt="" />
         </div>
+        
       </div>
     </div>
   );
