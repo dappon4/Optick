@@ -6,6 +6,7 @@ import google.ai.generativelanguage as glm
 from google.generativeai.types.content_types import *
 from PIL import Image
 import json
+import ast
 
 def generate_nutrional_values(description):
     load_dotenv()
