@@ -19,12 +19,17 @@ Make sure to explain why the food is healthy and how it benefits the user.
 Your output should contain 3 patterns of food items and how to prepare them.
 You do not have to make three different dishes, but you can use the ingredients in different ways.
 
+If the calorie limit is not provided, you can use all the ingredients provided.
+Otherwise, you should use the ingredients that are within the calorie limit.
+
 Your ingredients are:
 {ingredients}
+
+Calories left: {calories_left}
 """
 
-def prep_meal(ingredients):
-    response = model.generate_content([PROMPT.format(ingredients=ingredients)])
+def prep_meal(ingredients, calories_left = None):
+    response = model.generate_content([PROMPT.format(ingredients=ingredients, calories_left=calories_left)])
     
     return response.text
 
