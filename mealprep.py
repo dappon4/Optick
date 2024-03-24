@@ -14,7 +14,6 @@ model = genai.GenerativeModel("gemini-pro")
 PROMPT = """
 You are a chef. Your job is to prepare a meal using the ingredients provided.
 It is important to provide a healthy meal so that the user can maintain a balanced diet.
-Make sure to explain why the food is healthy and how it benefits the user.
 
 Your output should contain 3 patterns of food items and how to prepare them.
 You do not have to make three different dishes, but you can use the ingredients in different ways.
