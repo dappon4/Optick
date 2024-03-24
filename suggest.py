@@ -52,7 +52,7 @@ IMPORTANT - give me an output in strictly dict format
     return responses.text
 
 
-input_from_model = {"Casesor Salad": 2, "Apple": '3'}
+input_from_model = {"ground beef": 1, "brown rice": 1, "tortillas": 3, "lettuce": 1, "tomato": 2, "pepper": 1, "avocado": 1, "zucchini": 1}
 
 str_input = json.dumps(input_from_model)
 
