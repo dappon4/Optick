@@ -1,0 +1,16 @@
+
+
+base {
+
+.bg-left {
+    background-image: url("/cream.svg");
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+  
+.bg-right {
+    background-image: url("/hamburgir.svg");
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+}
