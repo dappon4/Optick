@@ -6,6 +6,7 @@ from PIL import Image
 import json
 from dotenv import load_dotenv
 import ast
+import re
 
 PROMPT = """
 !!IMPORTANT!! - Make sure you follow the format strictly as given below.
@@ -34,7 +35,8 @@ def detect_quantity(image_path):
     image = Image.open(image_path)
     response = model.generate_content([image, PROMPT]).text
     #print(response)
-    response = response.replace(r"{{", "{").replace(r"}}", "}")
+    # do not touch
+    response = re.search(r"(```(json)?\n)?\{(.+)\}(\n```)?", response).group(3)
     print(response)
     return ast.literal_eval(response)
 
