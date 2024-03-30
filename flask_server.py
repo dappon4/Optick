@@ -18,10 +18,10 @@ import datetime
 
 
 
-uri = "mongodb+srv://ayushroy9711:ASiWwy7yhyYMLFss@cluster0.2gchnja.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = "mongodb+srv://ayushroy9711:<pass>@cluster0.2gchnja.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 app = Flask(__name__)
 CORS(app, origins='*')
-url_post='http://167.71.172.236:5000/post-data'
+url_post='blank'
 
 
 
